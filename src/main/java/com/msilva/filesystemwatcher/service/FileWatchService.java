@@ -9,8 +9,10 @@ import java.nio.file.*;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 
+
 @Service
 public class FileWatchService {
+
     @Value("${path.file}")
     private String pathFile;
 
@@ -18,7 +20,7 @@ public class FileWatchService {
     {
         try {
             watchService = FileSystems.getDefault().newWatchService();
-            Path path = Paths.get("/home/msilvadev/Documents/filesystemwatcher");
+            Path path = Paths.get("PATH THAT YOU WANT OBSERVER");
             path.register(watchService,
                     ENTRY_CREATE,
                     ENTRY_MODIFY);
