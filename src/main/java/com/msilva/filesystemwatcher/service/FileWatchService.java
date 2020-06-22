@@ -1,6 +1,5 @@
 package com.msilva.filesystemwatcher.service;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -11,27 +10,27 @@ import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 
 
 @Service
-public class FileWatchService {
+public class FileWatchService implements FileWatch{
 
-    @Value("${path.file}")
-    private String pathFile;
+    public void createWatchService(){
+        WatchService watchService = null;
 
-    WatchService watchService;
-    {
-        try {
-            watchService = FileSystems.getDefault().newWatchService();
-            Path path = Paths.get("PATH THAT YOU WANT OBSERVER");
-            path.register(watchService,
-                    ENTRY_CREATE,
-                    ENTRY_MODIFY);
-            watchEvent();
-        } catch (IOException e) {
-            //TODO create log
-            e.printStackTrace();
+        {
+            try {
+                watchService = FileSystems.getDefault().newWatchService();
+                Path path = Paths.get("/home/msilvadev/Documents/filesystemwatcher");
+                path.register(watchService,
+                        ENTRY_CREATE,
+                        ENTRY_MODIFY);
+                watchEvent(watchService);
+            } catch (IOException e) {
+                //TODO create log
+                e.printStackTrace();
+            }
         }
     }
 
-    private void watchEvent() {
+    public void watchEvent(WatchService watchService) {
         WatchKey key;
         while (true) {
             try {

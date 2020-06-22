@@ -4,6 +4,3 @@ server:
 spring:
   application:
     name: file-system-watcher
-
-path:
-  file: "/home/msilvadev/Documents/filesystemwatcher"
