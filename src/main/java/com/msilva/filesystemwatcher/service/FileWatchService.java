@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.*;
 
+import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
+import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
+
 @Service
 public class FileWatchService {
     @Value("${path.file}")
@@ -17,8 +20,8 @@ public class FileWatchService {
             watchService = FileSystems.getDefault().newWatchService();
             Path path = Paths.get("/home/msilvadev/Documents/filesystemwatcher");
             path.register(watchService,
-                    StandardWatchEventKinds.ENTRY_CREATE,
-                    StandardWatchEventKinds.ENTRY_MODIFY);
+                    ENTRY_CREATE,
+                    ENTRY_MODIFY);
             watchEvent();
         } catch (IOException e) {
             //TODO create log
